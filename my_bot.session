@@ -12,15 +12,17 @@
         "RapEMOryHfILjOLzqgy2S9TjFMetdcJYOJVLOi3Jg=="
     ],
     "user_id": 623394207,
-    "date": 1560924284,
+    "date": 1560925337,
     "is_bot": true,
     "peers_by_id": {
         "42195344": 8406383889785877414,
-        "623394207": 5637113372617635763
+        "623394207": 5637113372617635763,
+        "23122162": 2964160104555163911
     },
     "peers_by_username": {
         "zhpinkman": 42195344,
-        "zh_pinkman_bot": 623394207
+        "zh_pinkman_bot": 623394207,
+        "haskell": 23122162
     },
     "peers_by_phone": {}
 }

@@ -1,8 +1,9 @@
 from pyrogram import Client, MessageHandler
+from credentials import bot_token
 
 app = Client(
     "my_bot",
-    bot_token="623394207:AAHCJBxemok-kZqDSLv2Z89LykGXehMZnOo"
+    bot_token=bot_token
 )
 
 def my_function(client, message):
