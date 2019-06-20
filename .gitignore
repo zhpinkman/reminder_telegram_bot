@@ -1,7 +1,6 @@
 config.ini
 credentials.py
-my_bot.session
 Pipfile*
-.gitignore
 __pycache__/
 .vscode/
+*.session

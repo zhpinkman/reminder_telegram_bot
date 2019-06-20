@@ -28,8 +28,9 @@ def add_event(client, message):
     # print(f"{year}, {month}, {day}")
     # print(f"{hour}, {minute}")
     date = JalaliDateTime(year, month, day).to_gregorian()
-    date = date.replace(hour=hour, minute=minute, tzinfo=tehran)
-    # print(date)
+    # date = date.replace(hour=hour, minute=minute, tzinfo=tehran)
+    date = date.replace(hour=hour, minute=minute, tzinfo=tz('UTC'))
+    print(message.chat)
     events.append({date : [name, message.chat.id]})
     print("added successfuly")
 
@@ -39,8 +40,7 @@ def remind(event):
 	name = event[date][0]
 	chat_id	= event[date][1]
 	date = date.strftime("%d-%b-%Y")
-	print("date")
-	print(date)
+	print(f"chat_id: {chat_id}")
 	app.send_message(chat_id = chat_id, text=MESSAGE.format(name, date))
 
 def check_events():
@@ -50,13 +50,14 @@ def check_events():
 	print("closer")
 	print(closer)
 	date = list(closer.keys())[0]
-	now = datetime.now(tz = tehran)
+	# now = datetime.now(tz = tehran)
+	now = datetime.utcnow().replace(tzinfo=tz('UTC'))
 	print(f"date: {date}\nnow: {now}")
 	if date > now and (date - now).seconds//3600 < 1:
-		events.pop(closer)
+		# events.pop(closer)
 		remind(closer)
 	else:
-		print(f"date: {date}")
+		print(f"else statement")
 
 
 
@@ -65,6 +66,5 @@ if __name__ == '__main__':
 	app.start()
 	schedule.every(30).seconds.do(check_events)
 	while True:
-		print("salam")
 		schedule.run_pending()
 		time.sleep(10)
