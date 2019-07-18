@@ -1,4 +1,4 @@
-from pyrogram import Client, Emoji, Filters
+from pyrogram import Client, Emoji, Filters, ReplyKeyboardMarkup
 from credentials import bot_token
 from datetime import datetime
 import time
@@ -21,18 +21,21 @@ app = Client(
 @app.on_message(Filters.regex(r'/add_event [a-zA-Z\s]* 13\d\d/\d{1,2}/\d{1,2} \d{2}:\d{2}'))
 def add_event(client, message):
     _, name, date, hour = message.text.split()
-    print(name)
-    print(message.text)
     year, month, day = list(map(int, date.split('/')))
     hour, minute = list(map(int, hour.split(':')))
-    # print(f"{year}, {month}, {day}")
-    # print(f"{hour}, {minute}")
     date = JalaliDateTime(year, month, day).to_gregorian()
     # date = date.replace(hour=hour, minute=minute, tzinfo=tehran)
     date = date.replace(hour=hour, minute=minute, tzinfo=tz('UTC'))
-    print(message.chat)
     events.append({date : [name, message.chat.id]})
-    print("added successfuly")
+    message.reply(
+		"Time",
+		reply_markup = ReplyKeyboardMarkup(
+			[
+				["1 Week Before", "1 Day Before", "1 Hour Before"]
+			],
+			resize_keyboard=True
+		)
+	)
 
 
 def remind(event):
@@ -67,4 +70,4 @@ if __name__ == '__main__':
 	schedule.every(30).seconds.do(check_events)
 	while True:
 		schedule.run_pending()
-		time.sleep(10)
+		time.sleep(5)
